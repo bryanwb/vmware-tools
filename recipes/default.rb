@@ -29,7 +29,8 @@ if node['virtualization']['system'] == 'vmware'
   remote_file "#{Chef::Config[:file_cache_path]}/#{node['esx']['tarball']}" do
     source "#{node['repo']['corp']['url']}/#{node['esx']['tarball']}"
     checksum "#{node['esx']['checksum']}"
-    mode "0644"
+    mode 00644
+    only_if "test ! -d /usr/lib/vmware-tools"
   end
 
   # install vmware-tools
